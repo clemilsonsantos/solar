@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>Calculadora de Painéis Solares</title>
+    <script>
+        function calcularPaineis() {
+            // Obtenha os valores dos campos de entrada
+            var consumoKwh = parseFloat(document.getElementById("consumoKwh").value);
+            var hsp = parseFloat(document.getElementById("hsp").value);
+            var potenciaPainel = parseFloat(document.getElementById("potenciaPainel").value);
+
+            // Verifique se todos os campos foram preenchidos corretamente
+            if (isNaN(consumoKwh) || isNaN(hsp) || isNaN(potenciaPainel)) {
+                alert("Por favor, preencha todos os campos com valores válidos.");
+                return;
+            }
+
+            // Calcule a potência total necessária em watts
+            var cDia = (consumoKwh / 30) * 1000;
+            var pFV = cDia / (hsp * 0.82);
+
+
+            // Calcule o número de painéis necessários
+            var numeroPaineis = pFV / potenciaPainel;
+
+            // Exiba o resultado
+            document.getElementById("resultado").innerHTML = "Número de painéis necessários: " + Math.ceil(numeroPaineis);
+        }
+    </script>
+</head>
+<body>
+    <h1>Calculadora de Painéis Solares</h1>
+    <form>
+        <label for="consumoKwh">Consumo mensal em kWh:</label>
+        <input type="number" id="consumoKwh" step="0.01" required><br><br>
+
+        <label for="hsp">Horas de Sol Pleno (HSP):</label>
+        <input type="number" id="hsp" step="0.01" required><br><br>
+
+        <label for="potenciaPainel">Potência do painel solar (W):</label>
+        <input type="number" id="potenciaPainel" step="0.01" required><br><br>
+
+        <button type="button" onclick="calcularPaineis()">Calcular</button>
+    </form>
+
+    <p id="resultado"></p>
+</body>
+</html>
